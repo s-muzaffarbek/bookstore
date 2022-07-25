@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- BREADCRUMB -->
+	<div id="breadcrumb">
+		<div class="container">
+			<ul class="breadcrumb">
+				<li><a href="{% url 'home' %}">Home</a></li>
+				<li class="active">Products</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /BREADCRUMB -->
+
+    <!-- section -->
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+				{% include 'aside.html' %}
+				<!-- MAIN -->
+				<div id="main" class="col-md-9">
+					<!-- store top filter -->
+					<div class="store-filter clearfix">
+						<div class="pull-left">
+							<div class="row-filter">
+								<a href="#"><i class="fa fa-th-large"></i></a>
+								<a href="#" class="active"><i class="fa fa-bars"></i></a>
+							</div>
+							<div class="sort-filter">
+								<span class="text-uppercase">Sort By:</span>
+                                <form method="get">
+                                    {% csrf_token %}
+                                    <select class="input" name="ordering">
+                                            <option value="create_at">Date</option>
+                                            <option value="-create_at">-Dete</option>
+                                            <option value="rating_avg">Rating</option>
+                                        </select>
+                                        <button class="btn btn-danger" type="submit">Order by</button>
+                                    </form>
+
+							</div>
+						</div>
+						<div class="pull-right">
+							<div class="page-filter">
+								<span class="text-uppercase">Show:</span>
+								<select class="input">
+										<option value="0">10</option>
+										<option value="1">20</option>
+										<option value="2">30</option>
+									</select>
+							</div>
+							<ul class="store-pages">
+                                <li><span class="text-uppercase">Page:</span></li>
+                                {% if books.has_previous %}
+                                    <li><a href="?page={{ books.previous_page_number }}"><i
+                                            class="fa fa-caret-left"></i></a></li>
+                                {% endif %}
+{#                                <li>first</li>#}
+                                <li class="active" ><a href="#">{{ books.number }}</a></li>
+{#                                <li><a href="#">last</a></li>#}
+                                {% if books.has_next %}
+                                    <li><a href="?page={{ books.next_page_number }}"><i
+                                            class="fa fa-caret-right"></i></a></li>
+                                {% endif %}
+                            </ul>
+						</div>
+					</div>
+					<!-- /store top filter -->
+
+					<!-- STORE -->
+					<div id="store">
+						<!-- row -->
+						<div class="row">
+
+                            {% for foo in books %}
+
+							<!-- Product Single -->
+							<div class="col-md-4 col-sm-6 col-xs-6">
+								<div class="product product-single">
+									<div class="product-thumb">
+										<div class="product-label">
+											<span class="sale">-20%</span>
+										</div>
+                                        <a href="{% url 'book_detail' foo.slug %}">
+										    <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
+                                        </a>
+										<img src="{{ foo.cover.url }}" alt="">
+									</div>
+									<div class="product-body">
+										<h3 class="product-price">$32.50 <del class="product-old-price">$45.00</del></h3>
+										<div class="product-rating">
+											<i class="fa fa-star{% if foo.rating_avg < 0.5%}-o{% elif foo.rating_avg >= 0.5 and foo.rating_avg < 1 %}-half-o{% endif %}" aria-hidden="true"></i>
+                                            <i class="fa fa-star{% if foo.rating_avg < 1.5%}-o{% elif foo.rating_avg >= 1.5 and foo.rating_avg < 2 %}-half-o{% endif %}" aria-hidden="true"></i>
+                                            <i class="fa fa-star{% if foo.rating_avg < 2.5%}-o{% elif foo.rating_avg >= 2.5 and foo.rating_avg < 3 %}-half-o{% endif %}" aria-hidden="true"></i>
+                                            <i class="fa fa-star{% if foo.rating_avg < 3.5%}-o{% elif foo.rating_avg >= 3.5 and foo.rating_avg < 4 %}-half-o{% endif %}" aria-hidden="true"></i>
+                                            <i class="fa fa-star{% if foo.rating_avg < 4.5%}-o{% elif foo.rating_avg >= 4.5 and foo.rating_avg < 5 %}-half-o{% endif %}" aria-hidden="true"></i>
+
+										</div>
+										<h2 class="product-name"><a href="{% url 'book_detail' foo.slug %}">{{ foo.title }}</a></h2>
+										<div class="product-btns">
+											<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
+											<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
+                                            <a href="{% url 'basket' foo.slug %}">
+											<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button></a>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- /Product Single -->
+                            {% endfor %}
+						</div>
+						<!-- /row -->
+					</div>
+					<!-- /STORE -->
+
+					<!-- store bottom filter -->
+					<div class="store-filter clearfix">
+						<div class="pull-left">
+							<div class="row-filter">
+								<a href="#"><i class="fa fa-th-large"></i></a>
+								<a href="#" class="active"><i class="fa fa-bars"></i></a>
+							</div>
+							<div class="sort-filter">
+								<span class="text-uppercase">Sort By:</span>
+								<select class="input">
+										<option value="0">Position</option>
+										<option value="0">Price</option>
+										<option value="0">Rating</option>
+									</select>
+								<a href="#" class="main-btn icon-btn"><i class="fa fa-arrow-down"></i></a>
+							</div>
+						</div>
+						<div class="pull-right">
+							<div class="page-filter">
+								<span class="text-uppercase">Show:</span>
+								<select class="input">
+										<option value="0">10</option>
+										<option value="1">20</option>
+										<option value="2">30</option>
+									</select>
+							</div>
+							<ul class="store-pages">
+								<li><span class="text-uppercase">Page:</span></li>
+                                {% if books.has_previous %}
+                                    <li><a href="?page={{books.previous_page_number}}"><i class="fa fa-caret-left"></i></a></li>
+                                {% endif %}
+                                <li class="active">{{ books.number }}</li>
+                                {%if books.has_next %}
+                                    <li><a href="?page={{books.next_page_number}}"><i class="fa fa-caret-right"></i></a></li>
+                                {% endif %}
+
+
+							</ul>
+						</div>
+					</div>
+					<!-- /store bottom filter -->
+				</div>
+				<!-- /MAIN -->
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /section -->
+
+{% endblock content %}
