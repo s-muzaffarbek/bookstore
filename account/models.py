@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from book.models import Book
-# Create your models here.
-
 
 class MyUser(AbstractUser):
     image = models.ImageField(upload_to='user/', null=True, blank=True)
@@ -16,6 +14,7 @@ class MyUser(AbstractUser):
 
 class Order(models.Model):
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name='user_order')
+    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='book_order')
     status = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
