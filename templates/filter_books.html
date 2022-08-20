@@ -79,9 +79,10 @@
                                                 <span>New</span>
                                                 <span class="sale">-20%</span>
                                             </div>
+                                            <a href="{% url 'book_detail' book.slug %}">
                                             <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick
                                                 view
-                                            </button>
+                                            </button></a>
                                             <img src="{{ book.cover.url }}" alt="">
                                         </div>
                                         <div class="product-body">
@@ -99,14 +100,15 @@
                                             </div>
                                             <h2 class="product-name"><a
                                                     href="{% url 'book_detail' book.slug %}">{{ book.name }}
-                                                by {{ book.authors }} </a></h2>
+                                                by {{ book.author }} </a></h2>
                                             <div class="product-btns">
                                                 <button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
                                                 <button class="main-btn icon-btn"><i class="fa fa-exchange"></i>
                                                 </button>
+                                                <a href="{% url 'basket' book.slug %}">
                                                 <button class="primary-btn add-to-cart"><i
                                                         class="fa fa-shopping-cart"></i> Add to Cart
-                                                </button>
+                                                </button></a>
                                             </div>
                                         </div>
                                     </div>
