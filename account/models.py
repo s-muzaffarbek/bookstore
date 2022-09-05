@@ -14,7 +14,6 @@ class MyUser(AbstractUser):
 
 class Order(models.Model):
     user = models.ForeignKey(MyUser, on_delete=models.CASCADE, related_name='user_order')
-
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='book_order')
     status = models.BooleanField(default=False)
     created = models.DateTimeField(auto_now_add=True)
@@ -22,14 +21,21 @@ class Order(models.Model):
 
     class Meta:
         abstract = True
-#
+
+class Basket(models.Model):
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    user = models.ForeignKey(MyUser, on_delete=models.CASCADE)
+    status = models.BooleanField()
+
+    def __str__(self):
+        return self.book.title
+
 # class CardItem(Order):
 #     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='book_order')
 #     quantity = models.PositiveIntegerField(default=0)
 #
 #     def __str__(self):
 #         return self.book.title
-#
 #
 # class Card(Order):
 #     items = models.ManyToManyField(CardItem)
@@ -38,5 +44,3 @@ class Order(models.Model):
 #
 #     def __str__(self):
 #         return f"{self.user.username} - id: {self.id}"
-
-    
