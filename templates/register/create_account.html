@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load widget_tweaks %}
-
+{% load static %}
 {% block title %} Register {% endblock %}
 
 {% block content %}
@@ -50,7 +50,7 @@
 					</div>
 
 					<div class="col-md-6">
-						Image
+						<img src="{% static 'img/register.jpg' %}" height="400px" width="700px">
 					</div>
 
 				</form>

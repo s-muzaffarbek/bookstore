@@ -43,7 +43,6 @@ class Book(models.Model):
     author = models.ForeignKey(Author, on_delete=models.SET_NULL, null=True, blank=True, related_name='author_book')
     like = models.PositiveIntegerField(default=0)
     rating_avg = models.DecimalField(max_digits=5, decimal_places=2, default=0)
-    qty = models.IntegerField(default=1)
 
     def __str__(self):
         return self.title
@@ -51,10 +50,6 @@ class Book(models.Model):
     @property
     def price2(self):
         return round(self.price - self.price * Decimal(0.2), 2)
-
-    def total(self):
-        return self.price2 * self.qty
-
 
 class Image(models.Model):
     book = models.ForeignKey(Book, on_delete=models.CASCADE)

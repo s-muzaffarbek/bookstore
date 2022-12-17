@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %} Login {% endblock %}
 
 {% block content %}
@@ -39,9 +39,8 @@
 					</div>
 
 					<div class="col-md-6">
-						Image
+						<img src="{% static 'img/login.png' %}" height="250px" width="600px">
 					</div>
-
 				</form>
 			</div>
 			<!-- /row -->

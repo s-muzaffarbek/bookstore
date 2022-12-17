@@ -92,6 +92,5 @@ def card_list(request):
     context = {
         'product': product,
     }
-
     return render(request, 'card.html', context)
 
